@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Review Rooster</title>
+</head>
+
+<body>
+<form action="/searchurl/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input class="give_c" type="submit" value="Submit" />
+</form>
+</body>
+</html>
+
