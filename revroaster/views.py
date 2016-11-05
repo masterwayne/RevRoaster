@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # Create your views here.
 from .forms import URLForm
+import sentiment_mod as s
+
 def home(request):
     # if this is a POST request we need to process the form data
 	if request.method == 'POST':
