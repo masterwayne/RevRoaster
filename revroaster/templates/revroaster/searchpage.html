@@ -1,15 +1,36 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Review Rooster</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'revroaster/css/design.css' %}">
 </head>
 
 <body>
-<form action="/searchurl/" method="post">
+<div id="wrapper1">
+  	</div>
+	<div class="wrapper">
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<div id="shift">
+<form method="post" action="/searchurl/">
+
     {% csrf_token %}
-    {{ form }}
-    <input class="give_c" type="submit" value="Submit" />
+    <input type="text" name="url" value="" required autofocus>
+      <button type="submit">Search</button>
 </form>
+</div>
 </body>
 </html>
 

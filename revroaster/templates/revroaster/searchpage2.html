@@ -1,54 +1,77 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Review Rooster</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  .searchbox{
-     position:fixed;
-    top: 40%;
-    left: 40%;
-  }
-  .searchBtn{
-    position:relative;
-    top:70%;
-    left:60%;
-  }
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -427px;
-  margin-left: -689px;
-}
-.heading{
-position:fixed;
-top:5%;
-left:10%;
-
-}
-.give_c{
-  color:red;
-  </style>
-}
+  <link rel="stylesheet" type="text/css" href="{% static 'revroaster/css/design.css' %}">
 </head>
 
 <body>
+<div id="wrapper1">
+    </div>
+  <div id="wrapper2">
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+<div id="shift2">
+<form method="post" action="/searchurl/" id="shift2">
 
-<div class="container">
-<img src="/static/revroaster/images/bg.png" class="centered">
-<form action="/searchurl/" method="post">
-    {{ form }}
-    <input class="give_c" type="submit" value="Submit" />
-    <p>hellloooo</p>
+    {% csrf_token %}
+    <input type="text" name="url" value="" required autofocus>
+      <button type="submit">Search</button>
 </form>
-<h2 class="heading">RevRoaster</h2>
-
-
+</div>
+<div id="confidence">
+<p id="confidenceprint">{{ score }}</p>
+</div>
+<ul id="comments-list" class="comments-list">
+     {% for rev in positive %}
+      <li>
+          <!-- Avatar -->
+          <!-- Contenedor del Comentario -->
+          <div class="comment-box">
+            <div class="comment-head">
+              <h6 class="comment-name by-author-positive">{{ rev.name }}</h6>
+              <i class="fa fa-reply"></i>
+              <i class="fa fa-heart"></i>
+              <i class="fa fa-heart"></i>
+              <i class="fa fa-heart"></i>
+            </div>
+            <div class="comment-content">
+              {{ rev.review }}
+            </div>
+          </div>
+      </li>
+      {% endfor %}
+      {% for rev in negative %}
+      <li>
+          <!-- Avatar -->
+          <!-- Contenedor del Comentario -->
+          <div class="comment-box">
+            <div class="comment-head">
+              <h6 class="comment-name by-author-negative">{{ rev.name }}</h6>
+              <i class="fa fa-reply"></i>
+              <i class="fa fa-heart"></i>
+              <i class="fa fa-heart"></i>
+              <i class="fa fa-heart"></i>
+            </div>
+            <div class="comment-content">
+              {{ rev.review }}
+            </div>
+          </div>
+      </li>
+      {% endfor %}
+    </ul>
+</div>
 </body>
 </html>
 

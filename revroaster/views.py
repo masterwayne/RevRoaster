@@ -9,19 +9,36 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json, requests, random, re
 from pprint import pprint
+import urllib
 
+def reviews(request):
+	if request.method == 'POST':
+		url = request.POST.get('url')
+		print(url)
+		sentiment_value, confidence = s.sentiment("hii there")
+		print(confidence)
+		send_url = urllib.quote_plus(url)
+		ini='http://api.diffbot.com/v3/discussion?token=cf945f26f8b8731483d2a5061e83f4f7&url='+send_url
+		res=requests.get(ini)
+		data = json.loads(res.text)
+		size = len(data['objects'][0]['posts'])
+		positive = []
+		negative = []
+		final_score = 0;
+		for i in range(0,size):
+			review = {}
+			sentiment_value, confidence = s.sentiment(data['objects'][0]['posts'][i]['text'].encode('ascii','ignore'))
+			review.update({'review':data['objects'][0]['posts'][i]['text'].encode('ascii','ignore'),'name':data['objects'][0]['posts'][i]['author']})
+			final_score = final_score + confidence
+			if sentiment_value == "pos":
+				positive.append(review)
+			else:	
+				negative.append(review)
+		final_score = final_score/size		
+        return render(request, 'revroaster/searchpage2.html',{'positive':positive,'negative':negative,'score':final_score})
 def home(request):
     # if this is a POST request we need to process the form data
-	if request.method == 'POST':
-		form = URLForm(request.POST)
-		if form.is_valid():
-			url = form.cleaned_data['url']
-			print(url)
-			return render(request, 'revroaster/searchpage2.html')
-	else:
-		form = URLForm()
-
-	return render(request, 'revroaster/searchpage.html', {'form': form})
+	return render(request, 'revroaster/searchpage.html')
 
 class BotView(generic.View):
     def get(self, request, *args, **kwargs):
@@ -44,9 +61,28 @@ class BotView(generic.View):
                 # Check to make sure the received call is a message call
                 # This might be delivery, optin, postback for other events 
                 if 'message' in message:
-                    # Print the message to the terminal
-                    pprint(message) 
-                    post_facebook_message(message['sender']['id'], message['message']['text'])    
+                	url = message['message']['text']
+                	print("**************************")
+                	print(url)
+                	send_url = urllib.quote_plus(url)
+                	ini='http://api.diffbot.com/v3/discussion?token=cf945f26f8b8731483d2a5061e83f4f7&url='+send_url
+                	res=requests.get(ini)
+                	data = json.loads(res.text)
+                	#size = len(data['objects'][0]['posts'])
+                	#positive = []
+                	#negative = []
+                	final_score = 0;
+                	#for i in range(0,size):
+                		#review = {}
+                		#sentiment_value, confidence = s.sentiment(data['objects'][0]['posts'][i]['text'].encode('ascii','ignore'))
+                		#review.update({'review':data['objects'][0]['posts'][i]['text'].encode('ascii','ignore'),'name':data['objects'][0]['posts'][i]['author']})
+                		#final_score = final_score + confidence
+                		#if sentiment_value == "pos":
+                			#positive.append(review)
+                		#else:	
+                			#negative.append(review)
+                	post_facebook_message(message['sender']['id'],"chutiya") 
+                	#final_score = final_score/size		   
         return HttpResponse()
 
 def post_facebook_message(fbid, recevied_message):           
