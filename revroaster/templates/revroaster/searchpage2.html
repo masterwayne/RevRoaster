@@ -8,6 +8,9 @@
 
 <body>
 <div id="wrapper1">
+<div id="imgmar">
+<a href="/home"><img src="{% static 'revroaster/images/logo.jpeg' %}" height=55px width=300px/></a>
+</div>
     </div>
   <div id="wrapper2">
   <ul class="bg-bubbles">
@@ -22,6 +25,7 @@
     <li></li>
     <li></li>
   </ul>
+<div>
 <div id="shift2">
 <form method="post" action="/searchurl/" id="shift2">
 
@@ -30,9 +34,18 @@
       <button type="submit">Search</button>
 </form>
 </div>
+<div id="please">
+<div id="nameprint">
+<a href= {{ url }} id="nameprint"> {{ name }}</a>
+</div>
+<div id="imageprint">
+<img src= {{ image }} height=200px width=300px />
+</div>
+</div>
 <div id="confidence">
 <p id="confidenceprint">{{ score }}</p>
 </div>
+<div id="reviews">
 <ul id="comments-list" class="comments-list">
      {% for rev in positive %}
       <li>
@@ -71,6 +84,8 @@
       </li>
       {% endfor %}
     </ul>
+</div>
+</div>
 </div>
 </body>
 </html>

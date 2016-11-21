@@ -1,3 +1,11 @@
+#imgmar{
+  
+position:absolute;
+margin-top:2%;
+}
+a{
+  text-decoration: none;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -77,10 +85,10 @@ body :-ms-input-placeholder {
   margin: 300px;
   margin-left:400px;
 }
+
 #shift2{
-  position:absolute;
-  margin: 10px;
-  margin-left:200px;
+  position:relative;
+  margin: 20px 0px 0px 0px;
   z-index:2;
 }
 #revshift{
@@ -88,16 +96,48 @@ body :-ms-input-placeholder {
   margin-top: 300px;
   z-index:2;
 }
+
+#please{
+  display:flex;
+  justify-content:space-between; 
+  position:relative;
+  margin: 40px 10px 0px 0px;
+  z-index:2;
+}
+ #nameprint{
+  text-decoration: none;
+  margin-left:100px;
+  width:500px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+  font-size: 28px;
+  color: white;
+  font-weight: 200;
+  margin-top:30px;
+  word-wrap:break-word;
+ }
+
+#imageprint{
+  margin-left:-50px;
+  margin-right: 100px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+  font-size: 48px;
+  color: white;
+  font-weight: 400;
+  margin-top:30px;
+ }
+
 #confidence{
-  position:absolute;
-  margin: 220px;
-  margin-left:550px;
+  position:relative;
+  margin: 80px 0px 0px 550px;
   z-index:2;
   height:120px;
   width:120px;
   background: #3d5453;
   border-radius: 100%;
 }
+
 #confidenceprint{
   font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
@@ -105,6 +145,11 @@ body :-ms-input-placeholder {
   color: white;
   font-weight: 400;
   margin-top:30px;
+}
+#reviews{
+  position:relative;
+  margin: -320px 0px 0px 0px;
+  z-index:2;
 }
 form {
   padding: 20px 0;

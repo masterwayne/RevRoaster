@@ -99,7 +99,9 @@ voted_classifier = VoteClassifier(
                                   LinearSVC_classifier,
                                   MNB_classifier,
                                   BernoulliNB_classifier,
-                                  LogisticRegression_classifier)
+                                  LogisticRegression_classifier,
+                                  LinearSVC_classifier,
+                                  SGDC_classifier)
 
 
 
