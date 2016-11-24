@@ -8,7 +8,7 @@ from sklearn.svm import SVC, LinearSVC, NuSVC
 from nltk.classify import ClassifierI
 from statistics import mode
 from nltk.tokenize import word_tokenize
-
+import urllib
 
 
 class VoteClassifier(ClassifierI):
@@ -45,6 +45,7 @@ documents = []
 allowed_word_types = ["J"]
 
 for p in short_pos.split('\n'):
+    p = urllib.quote_plus(p)
     documents.append( (p, "pos") )
     words = word_tokenize(p)
     pos = nltk.pos_tag(words)
@@ -54,6 +55,7 @@ for p in short_pos.split('\n'):
 
     
 for p in short_neg.split('\n'):
+    p = urllib.quote_plus(p)
     documents.append( (p, "neg") )
     words = word_tokenize(p)
     pos = nltk.pos_tag(words)
@@ -71,7 +73,7 @@ save_documents.close()
 all_words = nltk.FreqDist(all_words)
 
 
-word_features = list(all_words.keys())[:5000]
+word_features = list(all_words.keys())[:100000]
 
 
 save_word_features = open("sent_algo/word_features5k.pickle","wb")
@@ -92,8 +94,8 @@ featuresets = [(find_features(rev), category) for (rev, category) in documents]
 random.shuffle(featuresets)
 print(len(featuresets))
 
-testing_set = featuresets[900:]
-training_set = featuresets[:900]
+testing_set = featuresets[100:]
+training_set = featuresets[:382]
 
 
 classifier = nltk.NaiveBayesClassifier.train(training_set)
